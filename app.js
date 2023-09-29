@@ -4,8 +4,10 @@ const app = express();
 const port = 4000;
 const tasks = require('./routers/tasks');
 const connectDb = require('./db/connection');
-app.use(express.json());
 require('dotenv').config()
+// middleware
+app.use(express.static('./public'))
+app.use(express.json());
 const start = async() => {
     try {
         await connectDb(process.env.mongo_url);
@@ -16,9 +18,7 @@ const start = async() => {
         console.log(error)
     }
 }
-// app.get("/", (req , res) => {
-//     res.send('task manager app ')
-// })
+// routes
 app.use('/api/MrMH/tasks' , tasks);;
 start();
 
